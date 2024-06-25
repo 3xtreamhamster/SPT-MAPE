@@ -1,0 +1,188 @@
+{
+	"debug": true,
+
+	// Armors that can protect upperTorso
+	"upperTorso": [
+		"63737f448b28897f2802b874",	// Hexatac HPC Plate Carrier (MultiCam Black)
+		"5fd4c474dd870108a754b241", // 5.11 Tactical Hexgrid plate carrier
+		"5e4abb5086f77406975c9342",	// LBT-6094A Slick Plate Carrier (Black)
+		"6038b4b292ec1c3103795a0b",	// LBT-6094A Slick Plate Carrier (Coyote Tan)
+		"6038b4ca92ec1c3103795a0d",	// LBT-6094A Slick Plate Carrier (Olive Drab)	
+		"64a5366719bab53bd203bf33",	// Eagle Allied Industries MBSS plate carrier (Coyote Brown)
+		"628cd624459354321c4b7fa2",	// Tasmanian Tiger SK plate carrier (MultiCam Black)
+		"628b9784bcf6e2659e09b8a2",	// S&S Precision PlateFrame plate carrier (Goons Edition)
+		"64a536392d2c4e6e970f4121",	// WARTECH TV-115 plate carrier (Olive Drab)
+		"5c0e746986f7741453628fe5",	// WARTECH TV-110 plate carrier (Coyote)
+		"61bc85697113f767765c7fe7",	// Eagle Industries MMAC plate carrier (Ranger Green)
+		"639343fce101f4caa40a4ef3",	// Shellback Tactical Banshee plate carrier (A-TACS AU)
+		"5d5d87f786f77427997cfaef",	// Ars Arma A18 Skanda plate carrier (MultiCam)
+		"609e860ebd219504d8507525",	// Crye Precision AVS plate carrier (Tagilla Edition)
+		"5b44cad286f77402a54ae7e5",	// 5.11 Tactical TacTec plate carrier (Ranger Green)
+		"628b9c7d45122232a872358f",	// Crye Precision CPC plate carrier (Goons Edition)
+		"5e4ac41886f77406a511c9a8"	// Ars Arma CPC MOD.1 plate carrier (A-TACS FG)	
+	],
+
+	// Armors that can protect upper and lower Torso
+	"lowerTorso" : [
+		"64abd93857958b4249003418",	// Interceptor OTV body armor (UCP)
+		"5c0e5edb86f77461f55ed1f7",	// BNTI Zhuk body armor (Press)
+		"5b44d22286f774172b0c9de8",	// BNTI Kirasa-N body armor
+		"5c0e655586f774045612eeb2",	// HighCom Trooper TFO body armor (MultiCam)
+		"609e8540d5c319764c2bc2e9",	// NFM THOR Concealable Reinforced Vest body armor
+		"5ab8e79e86f7742d8b372e78", // BNTI Gzhel-K body armor
+		"5c0e625a86f7742d77340f62",	// BNTI Zhuk body armor (Digital Flora)
+		"5b44cf1486f77431723e3d05",	// IOTV Gen4 body armor (Assault Kit, MultiCam)
+		"5c0e722886f7740458316a57",	// ANA Tactical M1 plate carrier (Olive Drab)
+		"61bcc89aef0f505f0c6cd0fc",	// FirstSpear Strandhogg plate carrier (Ranger Green)
+		"60a3c70cde5f453f634816a3",	// CQC Osprey MK4A plate carrier (Assault, MTP)
+		"5ab8dced86f774646209ec87",	// ANA Tactical M2 plate carrier (Digital Flora)
+		"628d0618d1ba6e4fa07ce5a4",	// NPP KlASS Bagariy plate carrier (Digital Flora)
+		"60a3c68c37ea821725773ef5"	// CQC Osprey MK4A plate carrier (Protection, MTP)		
+	],
+
+	// Armors that can protect entire Torso (upper + lower + groin + buttocks)
+	"entireTorso": [
+		"5c0e53c886f7747fa54205c7",	// 6B13 assault armor (Digital Flora)
+		"5c0e5bab86f77461f55ed1f3",	// 6B23-1 body armor (Digital Flora)
+		"5c0e57ba86f7747fa141986d",	// 6B23-2 body armor (Mountain Flora)
+		"5f5f41476bdad616ad46d631",	// NPP KlASS Korund-VM body armor (Black)
+		"5e9dacf986f774054d6b89f4",	// FORT Defender-2 body armor
+		"5c0e541586f7747fa54205c9",	// 6B13 M assault armor (Killa Edition)
+		"5ca2151486f774244a3b8d30",	// FORT Redut-M body armor
+		"5b44d0de86f774503d30cba8",	// IOTV Gen4 body armor (High Mobility Kit, MultiCam)
+		"60a283193cb70855c43a381d",	// NFM THOR Integrated Carrier body armor
+		"5ca21c6986f77479963115a7",	// FORT Redut-T5 body armor (Smog)
+		"545cdb794bdc2d3a198b456a",	// 6B43 Zabralo-Sh body armor (Digital Flora)
+		"5b44cd8b86f774503d30cba2",	// IOTV Gen4 body armor (Full Protection Kit, MultiCam)
+		"628dc750b910320f4c27a732",	// ECLiPSE RBAV-AF plate carrier (Ranger Green)
+		"544a5caa4bdc2d1a388b4568"	// Crye Precision AVS plate carrier (Ranger Green)
+	],
+
+	// ----------------------
+
+	// You can customize colliders of specific type of armor
+	"upperTorsoFrontProtectionArea" : [
+		"LeftSideChestUp",			// Left Armpit
+		"LeftSideChestDown",		// Left Side
+		"RightSideChestUp",			// Right Armpit
+		"RightSideChestDown",		// Right Side
+		"RibcageUp"					// Thorax
+	],
+
+	"upperTorsoBackProtectionArea" : [
+		"SpineTop"					// Upper Back
+	],
+
+	"lowerTorsoFrontProtectionArea" : [
+		"LeftSideChestUp",			// Left Armpit
+		"LeftSideChestDown",		// Left Side
+		"RightSideChestUp",			// Right Armpit
+		"RightSideChestDown",		// Right Side
+		"RibcageUp",				// Thorax
+		"RibcageLow"				// Stomach
+	],
+
+	"lowerTorsoBackProtectionArea" : [
+		"SpineTop",					// Upper Back
+		"SpineDown"					// Lower Back
+	],
+
+	"entireTorsoFrontProtectionArea" : [
+		"LeftSideChestUp",			// Left Armpit
+		"LeftSideChestDown",		// Left Side
+		"RightSideChestUp",			// Right Armpit
+		"RightSideChestDown",		// Right Side
+		"Pelvis",					// Groin
+		"RibcageUp",				// Thorax
+		"RibcageLow"				// Stomach
+	],
+
+	"entireTorsoBackProtectionArea" : [
+		"PelvisBack",				// Buttocks
+		"SpineTop",					// Upper Back
+		"SpineDown"					// Lower Back
+	],
+
+	// ----------------------
+
+	// Armor plates that can be inserted in both side(front, back)
+	"armorPlates" : [
+		"656fac30c6baea13cd07e10c",	// PRTCTR Lightweight ballistic plate
+		"656f9d5900d62bcd2e02407c",	// AR500 Legacy Plate ballistic plate
+		"656fad8c498d1b7e3e071da0",	// Monoclete level III PE ballistic plate
+		"656fa0fb498d1b7e3e071d9c",	// Global Armor’s Steel ballistic plate
+		"656fb21fa0dce000a2020f7c",	// NewSphereTech level III ballistic plate
+		"656fb0bd7c2d57afe200c0dc",	// SPRTN Elaphros ballistic plate
+		"656f9fa0498d1b7e3e071d98",	// SPRTN Omega ballistic plate
+		"656fa25e94b480b8a500c0e0",	// Kiba Arms Titan ballistic plate
+		"656fae5f7c2d57afe200c0d7",	// GAC 3s15m ballistic plate
+		"655746010177119f4a097ff7",	// SAPI level III+ ballistic plate
+		"656fa53d94b480b8a500c0e4",	// TallCom Guardian ballistic plate
+		"65573fa5655447403702a816",	// Granit Br4 ballistic plate
+		"656fa8d700d62bcd2e024084",	// Cult Locust ballistic plate
+		"656fafe3498d1b7e3e071da4",	// KITECO SC-IV SA ballistic plate
+		"656faf0ca0dce000a2020f77",	// GAC 4sss2 ballistic plate
+		"656fa76500d62bcd2e024080",	// Kiba Arms Steel ballistic plate
+		"64afdcb83efdfea28601d041", // ESAPI level IV ballistic plate
+		"656fa61e94b480b8a500c0e8",	// NESCO 4400-SA-MC ballistic plate
+		"64afc71497cf3a403c01ff38",	// Granit Br5 ballistic plate
+		"656fa99800d62bcd2e024088"	// Cult Termite ballistic plate
+	],
+
+	// Armor plates that can only be inserted in front side
+	"frontArmorPlates" : [
+		"656f57dc27aed95beb08f628",	// Zhuk-3 ballistic plate (Front)
+		"654a4dea7c17dec2f50cc86a",	// 6B12 ballistic plates (Front)
+		"656f603f94b480b8a500c0d6",	// 6B33 ballistic plate (Front)
+		"656f611f94b480b8a500c0db",	// Granit 4 ballistic plate (Front)
+		"656f664200d62bcd2e024077",	// Korund-VM ballistic plates (Front)
+		"656f63c027aed95beb08f62c",	// Granit 4RS ballistic plate (Front)
+		"656f66b5c6baea13cd07e108"	// Korund-VM-K ballistic plates (Front) 
+	],
+
+	// Armor plates that can only be inserted in back side
+	"backArmorPlates" : [
+		"657b22485f444d6dff0c6c2f",	// 6B23-2 ballistic plate (Back)
+		"656efd66034e8e01c407f35c",	// 6B13 custom ballistic plates (Back)
+		"657b2797c3dbcb01d60c35ea",	// Korund-VM ballistic plate (Back)
+		"656efaf54772930db4031ff5",	// Granit 4 ballistic plates (Back)
+		"657b28d25f444d6dff0c6c77",	// Korund-VM-K ballistic plate (Back)
+		"654a4a964b446df1ad03f192"	// Granit 4RS ballistic plates (Back)	
+	],
+
+	// ----------------------
+
+	// All areas that plate can protect.
+	// You can add more areas in here, but final protection area follows armor's area.
+	// so you have to edit both to work correctly.	
+	// For example, if you add all colliders in here and do nothing on armor's protection area(above),
+	// the armor's area still follows its own areas even if you inserted edited plates.	
+	"armorPlateProtectableArea" : [
+		"LeftSideChestUp",			// Left Armpit
+		"LeftSideChestDown",		// Left Side
+		"RightSideChestUp",			// Right Armpit
+		"RightSideChestDown",		// Right Side
+		"Pelvis",					// Groin
+		"RibcageUp",				// Thorax
+		"RibcageLow",				// Stomach
+		"PelvisBack",				// Buttocks
+		"SpineTop",					// Upper Back
+		"SpineDown"					// Lower Back
+	],
+
+	"frontArmorPlateProtectableArea" : [
+		"LeftSideChestUp",			// Left Armpit
+		"LeftSideChestDown",		// Left Side
+		"RightSideChestUp",			// Right Armpit
+		"RightSideChestDown",		// Right Side
+		"Pelvis",					// Groin
+		"RibcageUp",				// Thorax
+		"RibcageLow"				// Stomach
+	],
+
+	"backArmorPlateProtectableArea" : [
+		"PelvisBack",				// Buttocks
+		"SpineTop",					// Upper Back
+		"SpineDown"					// Lower Back
+	]
+}
