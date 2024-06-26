@@ -1,5 +1,5 @@
 {
-	"debug": true,
+	"debug": false,
 
 	// Armors that can protect upperTorso
 	"upperTorso": [
