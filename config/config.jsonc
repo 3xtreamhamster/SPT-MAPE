@@ -1,6 +1,9 @@
 {
 	"debug": false,
 
+	// Mod Compatibility Options
+	"mod_TGC" : false,				// Tactical Gear Component
+
 	// Armors that can protect upperTorso
 	"upperTorso": [
 		"63737f448b28897f2802b874",	// Hexatac HPC Plate Carrier (MultiCam Black)

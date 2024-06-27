@@ -26,10 +26,30 @@ class MAPE implements IPostDBLoadMod
 
 		const vfs = container.resolve<VFS>("VFS");
 		const config = jsonc.parse(vfs.readFile(path.resolve(__dirname, "../config/config.jsonc")));
+
+		let defaultArmorGears = [];
+		defaultArmorGears = defaultArmorGears.concat(config.upperTorso, config.lowerTorso, config.entireTorso); // All BSG's default EFT gears
 		
 		for (let item in itemDB) {
 			if (itemDB[item]._type !== "Node") {
-				const itemId = itemDB[item]._id
+				let itemId = itemDB[item]._id
+				
+				if (config.mod_TGC) { // For MoxoPixel-TacticalGearComponent
+					const modTGC_items = JSON.parse(vfs.readFile(path.resolve(__dirname, "../../MoxoPixel-TacticalGearComponent/database/modTGC_items.json"))); // is it working?
+
+					if (modTGC_items.hasOwnProperty(itemId)) {
+						let cloneId = modTGC_items[itemId].clone;
+
+						if (defaultArmorGears.includes(cloneId)) { // check item is armor vest or body armor
+							itemId = cloneId; // change itemId to cloneId
+
+							if (config.debug) {
+								logger.info(`[${this.modShortName}] Cloned ${itemDB[item]._name}'s cloneID. (clone id ${itemId} )`);
+							}			
+						}
+					}		
+				}
+
 				if (config.upperTorso.includes(itemId)) {	// if item is in upperTorso table
 					if (config.debug) {
 						logger.info(`[${this.modShortName}] adjusting item ${itemDB[item]._name} (id ${itemId} ) to match config values (front)`);
@@ -79,6 +99,13 @@ class MAPE implements IPostDBLoadMod
 					itemDB[item]._props.armorColliders = config.backArmorPlateProtectableArea;
 					itemDB[item]._props.armorPlateColliders = [];
 				}
+
+
+
+
+
+
+
 			}
 		}
 		logger.info(`[${this.modShortName}] ${this.mod} Loaded`);
