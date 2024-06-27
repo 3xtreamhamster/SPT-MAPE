@@ -2,12 +2,14 @@ import { DependencyContainer } from "tsyringe";
 import { Ilogger } from "@spt-aki/models/spt/utils/Ilogger";
 import { IPostDBLoadMod } from "@spt-aki/models/external/IPostDBLoadMod";
 import { DatabaseServer } from "@spt-aki/servers/DatabaseServer";
+import { PreAkiModLoader } from "@spt-aki/loaders/PreAkiModLoader";
+import { IPostAkiLoadMod } from "@spt-aki/models/external/IPostAkiLoadMod";
 
 import { VFS } from "@spt-aki/utils/VFS";
 import { jsonc } from "jsonc";
 import path from "path";
 
-class MAPE implements IPostDBLoadMod
+class MAPE implements IPostDBLoadMod, IPostAkiLoadMod, PreAkiModLoader
 {
 	public mod: string;
     public modShortName: string;
@@ -15,7 +17,7 @@ class MAPE implements IPostDBLoadMod
 	constructor() {
         this.mod = "Make Armor Plate Effective";
         this.modShortName = "MAPE";
-	}
+	}	
 
 	public postDBLoad(container: DependencyContainer): void 
 	{
@@ -26,6 +28,14 @@ class MAPE implements IPostDBLoadMod
 
 		const vfs = container.resolve<VFS>("VFS");
 		const config = jsonc.parse(vfs.readFile(path.resolve(__dirname, "../config/config.jsonc")));
+
+		// Check Compatibility
+		const preAkiModLoader = container.resolve<PreAkiModLoader>("PreAkiModLoader");
+		if (!config.mod_TGC && preAkiModLoader.getImportedModsNames().includes("MoxoPixel-TacticalGearComponent"))
+		{
+			logger.info(`[${this.modShortName}] Tactical Gear Component is detected.`);
+			config.mod_TGC = true;
+		}
 
 		let defaultArmorGears = [];
 		defaultArmorGears = defaultArmorGears.concat(config.upperTorso, config.lowerTorso, config.entireTorso); // All BSG's default EFT gears
@@ -99,13 +109,6 @@ class MAPE implements IPostDBLoadMod
 					itemDB[item]._props.armorColliders = config.backArmorPlateProtectableArea;
 					itemDB[item]._props.armorPlateColliders = [];
 				}
-
-
-
-
-
-
-
 			}
 		}
 		logger.info(`[${this.modShortName}] ${this.mod} Loaded`);
