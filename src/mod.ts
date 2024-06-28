@@ -36,14 +36,33 @@ class MAPE implements IPostDBLoadMod, IPostAkiLoadMod, PreAkiModLoader
 			logger.info(`[${this.modShortName}] Tactical Gear Component is detected.`);
 			config.mod_TGC = true;
 		}
+		if (!config.mod_ARTEM && preAkiModLoader.getImportedModsNames().includes("AAArtemEquipment"))
+		{
+			logger.info(`[${this.modShortName}] Artem Equipment is detected.`);
+			config.mod_ARTEM = true;
+		}
 
 		let defaultArmorGears = [];
 		defaultArmorGears = defaultArmorGears.concat(config.upperTorso, config.lowerTorso, config.entireTorso); // All BSG's default EFT gears
+
+		// Mod Compatibility 
+		if (config.mod_ARTEM) { // For Artem Equipment mod
+			const artemConfig = jsonc.parse(vfs.readFile(path.resolve(__dirname, "../config/artem.jsonc")));
+
+			config.upperTorso = config.upperTorso.concat(artemConfig.upperTorso);
+			config.lowerTorso = config.lowerTorso.concat(artemConfig.lowerTorso);
+			config.entireTorso = config.entireTorso.concat(artemConfig.entireTorso);
+
+			if (config.debug) {
+				logger.info(`[${this.modShortName}] Artem equipments loaded.)`);
+			}
+		}
 		
 		for (let item in itemDB) {
 			if (itemDB[item]._type !== "Node") {
 				let itemId = itemDB[item]._id
 				
+				// Mod Compatibility
 				if (config.mod_TGC) { // For MoxoPixel-TacticalGearComponent
 					const modTGC_items = JSON.parse(vfs.readFile(path.resolve(__dirname, "../../MoxoPixel-TacticalGearComponent/database/modTGC_items.json"))); // is it working?
 
@@ -56,6 +75,16 @@ class MAPE implements IPostDBLoadMod, IPostAkiLoadMod, PreAkiModLoader
 							if (config.debug) {
 								logger.info(`[${this.modShortName}] Cloned ${itemDB[item]._name}'s cloneID. (clone id ${itemId} )`);
 							}			
+						}
+						else if (modTGC_items.hasOwnProperty(cloneId)) { // if item is clone of TGC another armor
+							while (modTGC_items.hasOwnProperty(cloneId)) { // change cloneId until it is BSG's default EFT gear's one.
+								cloneId = modTGC_items[cloneId].clone;
+
+								if (config.debug) {
+									logger.info(`[${this.modShortName}] Cloned ${itemDB[item]._name}'s cloneID. (clone id ${itemId} )`);
+								}
+							}
+							itemId = cloneId; // change itemId to cloneId
 						}
 					}		
 				}

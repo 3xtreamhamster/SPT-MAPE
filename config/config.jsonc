@@ -3,6 +3,7 @@
 
 	// Mod Compatibility Options
 	"mod_TGC" : false,				// Tactical Gear Component
+	"mod_ARTEM": false,				// Artem's gear
 
 	// Armors that can protect upperTorso
 	"upperTorso": [
