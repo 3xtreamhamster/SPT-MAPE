@@ -5,7 +5,10 @@
 	"mod_TGC" : false,				// Tactical Gear Component
 	"mod_ARTEM": false,				// Artem's gear
 
-	// Armors that can protect upperTorso
+	// Protection Type Options
+	"isFrontPlateProtectSideTorso" : false,	// If it is true, front plates also protect side(LeftSideChestDown, RightSideChestDown)
+
+	// Armors that can protect upper torso
 	"upperTorso": [
 		"63737f448b28897f2802b874",	// Hexatac HPC Plate Carrier (MultiCam Black)
 		"5fd4c474dd870108a754b241", // 5.11 Tactical Hexgrid plate carrier
@@ -26,7 +29,7 @@
 		"5e4ac41886f77406a511c9a8"	// Ars Arma CPC MOD.1 plate carrier (A-TACS FG)	
 	],
 
-	// Armors that can protect upper and lower Torso
+	// Armors that can protect upper and lower torso
 	"lowerTorso" : [
 		"64abd93857958b4249003418",	// Interceptor OTV body armor (UCP)
 		"5c0e5edb86f77461f55ed1f7",	// BNTI Zhuk body armor (Press)
@@ -44,7 +47,7 @@
 		"60a3c68c37ea821725773ef5"	// CQC Osprey MK4A plate carrier (Protection, MTP)		
 	],
 
-	// Armors that can protect entire Torso (upper + lower + groin + buttocks)
+	// Armors that can protect entire torso (upper + lower + groin + buttocks)
 	"entireTorso": [
 		"5c0e53c886f7747fa54205c7",	// 6B13 assault armor (Digital Flora)
 		"5c0e5bab86f77461f55ed1f3",	// 6B23-1 body armor (Digital Flora)
@@ -62,14 +65,41 @@
 		"544a5caa4bdc2d1a388b4568"	// Crye Precision AVS plate carrier (Ranger Green)
 	],
 
+	// Armors that can protect side torso (can be overlapped with above options)
+	"sideTorso": [
+		"545cdb794bdc2d3a198b456a",	// 6B43 Zabralo-Sh body armor (Digital Flora)
+		"5ab8dced86f774646209ec87",	// ANA Tactical M2 plate carrier (Digital Flora)
+		"5ab8e79e86f7742d8b372e78", // BNTI Gzhel-K body armor
+		"5b44cf1486f77431723e3d05",	// IOTV Gen4 body armor (Assault Kit, MultiCam)
+		"5b44d0de86f774503d30cba8",	// IOTV Gen4 body armor (High Mobility Kit, MultiCam)
+		"5b44cd8b86f774503d30cba2",	// IOTV Gen4 body armor (Full Protection Kit, MultiCam)
+		"5c0e5edb86f77461f55ed1f7",	// BNTI Zhuk body armor (Press)
+		"5c0e625a86f7742d77340f62",	// BNTI Zhuk body armor (Digital Flora)
+		"5c0e722886f7740458316a57",	// ANA Tactical M1 plate carrier (Olive Drab)
+		"5ca2151486f774244a3b8d30",	// FORT Redut-M body armor
+		"5ca21c6986f77479963115a7",	// FORT Redut-T5 body armor (Smog)
+		"5d5d87f786f77427997cfaef",	// Ars Arma A18 Skanda plate carrier (MultiCam)
+		"5e4ac41886f77406a511c9a8",	// Ars Arma CPC MOD.1 plate carrier (A-TACS FG)
+		"609e8540d5c319764c2bc2e9",	// NFM THOR Concealable Reinforced Vest body armor
+		"60a283193cb70855c43a381d",	// NFM THOR Integrated Carrier body armor
+		"60a3c70cde5f453f634816a3",	// CQC Osprey MK4A plate carrier (Assault, MTP)
+		"60a3c68c37ea821725773ef5",	// CQC Osprey MK4A plate carrier (Protection, MTP)
+		"61bc85697113f767765c7fe7",	// Eagle Industries MMAC plate carrier (Ranger Green)
+		"61bcc89aef0f505f0c6cd0fc",	// FirstSpear Strandhogg plate carrier (Ranger Green)
+		"628b9c7d45122232a872358f",	// Crye Precision CPC plate carrier (Goons Edition)
+		"628dc750b910320f4c27a732",	// ECLiPSE RBAV-AF plate carrier (Ranger Green)
+		"639343fce101f4caa40a4ef3",	// Shellback Tactical Banshee plate carrier (A-TACS AU)
+		"628b9784bcf6e2659e09b8a2",	// S&S Precision PlateFrame plate carrier (Goons Edition)
+		"628d0618d1ba6e4fa07ce5a4",	// NPP KlASS Bagariy plate carrier (Digital Flora)
+		"5f5f41476bdad616ad46d631"	// NPP KlASS Korund-VM body armor (Black)
+	],
+
 	// ----------------------
 
 	// You can customize colliders of specific type of armor
 	"upperTorsoFrontProtectionArea" : [
 		"LeftSideChestUp",			// Left Armpit
-		"LeftSideChestDown",		// Left Side
 		"RightSideChestUp",			// Right Armpit
-		"RightSideChestDown",		// Right Side
 		"RibcageUp"					// Thorax
 	],
 
@@ -79,9 +109,7 @@
 
 	"lowerTorsoFrontProtectionArea" : [
 		"LeftSideChestUp",			// Left Armpit
-		"LeftSideChestDown",		// Left Side
 		"RightSideChestUp",			// Right Armpit
-		"RightSideChestDown",		// Right Side
 		"RibcageUp",				// Thorax
 		"RibcageLow"				// Stomach
 	],
@@ -93,9 +121,7 @@
 
 	"entireTorsoFrontProtectionArea" : [
 		"LeftSideChestUp",			// Left Armpit
-		"LeftSideChestDown",		// Left Side
 		"RightSideChestUp",			// Right Armpit
-		"RightSideChestDown",		// Right Side
 		"Pelvis",					// Groin
 		"RibcageUp",				// Thorax
 		"RibcageLow"				// Stomach
@@ -105,6 +131,14 @@
 		"PelvisBack",				// Buttocks
 		"SpineTop",					// Upper Back
 		"SpineDown"					// Lower Back
+	],
+
+	"leftSideTorsoProtectionArea" : [
+		"LeftSideChestDown"			// Left Side
+	],
+
+	"rightSideTorsoProtectionArea" : [
+		"RightSideChestDown"		// Right Side
 	],
 
 	// ----------------------
@@ -154,6 +188,14 @@
 		"654a4a964b446df1ad03f192"	// Granit 4RS ballistic plates (Back)	
 	],
 
+	// Armor plates that can only be inserted in side
+	"sideArmorPlates" : [
+		"6557458f83942d705f0c4962",	// SSAPI level III+ ballistic plate (Side)
+		"654a4f8bc721968a4404ef18",	// Korund-VM ballistic plate (Side)
+		"64afdb577bb3bfe8fe03fd1d",	// ESBI level IV ballistic plate (Side)
+		"64afd81707e2cf40e903a316"	// Granit ballistic plate (Side)
+	],
+
 	// ----------------------
 
 	// All areas that plate can protect.
@@ -163,9 +205,7 @@
 	// the armor's area still follows its own areas even if you inserted edited plates.	
 	"armorPlateProtectableArea" : [
 		"LeftSideChestUp",			// Left Armpit
-		"LeftSideChestDown",		// Left Side
 		"RightSideChestUp",			// Right Armpit
-		"RightSideChestDown",		// Right Side
 		"Pelvis",					// Groin
 		"RibcageUp",				// Thorax
 		"RibcageLow",				// Stomach
@@ -176,9 +216,7 @@
 
 	"frontArmorPlateProtectableArea" : [
 		"LeftSideChestUp",			// Left Armpit
-		"LeftSideChestDown",		// Left Side
-		"RightSideChestUp",			// Right Armpit
-		"RightSideChestDown",		// Right Side
+		"RightSideChestUp",			// Right Armpit	
 		"Pelvis",					// Groin
 		"RibcageUp",				// Thorax
 		"RibcageLow"				// Stomach
@@ -188,5 +226,10 @@
 		"PelvisBack",				// Buttocks
 		"SpineTop",					// Upper Back
 		"SpineDown"					// Lower Back
+	],
+
+	"sideArmorPlateProtectableArea" : [
+		"LeftSideChestDown",		// Left Side
+		"RightSideChestDown"		// Right Side
 	]
 }

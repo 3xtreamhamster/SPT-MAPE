@@ -89,9 +89,18 @@ class MAPE implements IPostDBLoadMod, IPostAkiLoadMod, PreAkiModLoader
 					}		
 				}
 
+				// Protection Type Option
+				if (config.isFrontPlateProtectSideTorso) {
+					config.upperTorsoFrontProtectionArea = config.upperTorsoFrontProtectionArea.concat(config.leftSideTorsoProtectionArea, config.rightSideTorsoProtectionArea);
+					config.lowerTorsoFrontProtectionArea = config.lowerTorsoFrontProtectionArea.concat(config.leftSideTorsoProtectionArea, config.rightSideTorsoProtectionArea);
+					config.entireTorsoFrontProtectionArea = config.entireTorsoFrontProtectionArea.concat(config.leftSideTorsoProtectionArea, config.rightSideTorsoProtectionArea);
+					config.armorPlateProtectableArea = config.armorPlateProtectableArea.concat(config.sideArmorPlateProtectableArea);
+					config.frontArmorPlateProtectableArea = config.frontArmorPlateProtectableArea.concat(config.sideArmorPlateProtectableArea);
+				}
+
 				if (config.upperTorso.includes(itemId)) {	// if item is in upperTorso table
 					if (config.debug) {
-						logger.info(`[${this.modShortName}] adjusting item ${itemDB[item]._name} (id ${itemId} ) to match config values (front)`);
+						logger.info(`[${this.modShortName}] adjusting item ${itemDB[item]._name} (id ${itemId} ) to match config values (upper)`);
 					}
 					itemDB[item]._props.Slots[0]._props.filters[0].armorColliders = config.upperTorsoFrontProtectionArea; // set front plate armor collider
 					itemDB[item]._props.Slots[1]._props.filters[0].armorColliders = config.upperTorsoBackProtectionArea; // set back plate armor collider
@@ -101,7 +110,7 @@ class MAPE implements IPostDBLoadMod, IPostAkiLoadMod, PreAkiModLoader
 				}
 				else if (config.lowerTorso.includes(itemId)) { // if item is in lowerTorso table
 					if (config.debug) {
-						logger.info(`[${this.modShortName}] adjusting item ${itemDB[item]._name} (id ${itemId} ) to match config values (back)`);
+						logger.info(`[${this.modShortName}] adjusting item ${itemDB[item]._name} (id ${itemId} ) to match config values (lower)`);
 					}
 					itemDB[item]._props.Slots[0]._props.filters[0].armorColliders = config.lowerTorsoFrontProtectionArea; // set front plate armor collider
 					itemDB[item]._props.Slots[1]._props.filters[0].armorColliders = config.lowerTorsoBackProtectionArea; // set back plate armor collider
@@ -137,6 +146,25 @@ class MAPE implements IPostDBLoadMod, IPostAkiLoadMod, PreAkiModLoader
 					}
 					itemDB[item]._props.armorColliders = config.backArmorPlateProtectableArea;
 					itemDB[item]._props.armorPlateColliders = [];
+				}
+
+				if (!config.isFrontPlateProtectSideTorso) { // can use side plates
+					if (config.sideTorso.includes(itemId)) {
+						if (config.debug) {
+							logger.info(`[${this.modShortName}] adjusting item ${itemDB[item]._name} (id ${itemId} ) to match config values (side)`);
+						}
+						itemDB[item]._props.Slots[2]._props.filters[0].armorColliders = config.leftSideTorsoProtectionArea; // set left side plate armor collider
+						itemDB[item]._props.Slots[3]._props.filters[0].armorColliders = config.rightSideTorsoProtectionArea; // set right side plate armor collider
+						itemDB[item]._props.Slots[2]._props.filters[0].armorPlateColliders = [];
+						itemDB[item]._props.Slots[3]._props.filters[0].armorPlateColliders = [];
+					}
+					else if (config.sideArmorPlates.includes(itemId)) {
+						if (config.debug) {
+							logger.info(`[${this.modShortName}] adjusting item ${itemDB[item]._name} (id ${itemId} ) to match config values (side plate)`);
+						}
+						itemDB[item]._props.armorColliders = config.sideArmorPlateProtectableArea;
+						itemDB[item]._props.armorPlateColliders = [];
+					}
 				}
 			}
 		}
