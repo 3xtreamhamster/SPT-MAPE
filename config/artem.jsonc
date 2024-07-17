@@ -3,13 +3,18 @@
 
 	// Armors that can protect upperTorso
 	"upperTorso": [
-		"66326bfd46817c660d01513b",	// KOMBAT Viking Molle Plate Carrier
-		"66326bfd46817c660d015135",		// KOMBAT Viking Molle Plate Carrier
+		"66326bfd46817c660d01513b",	// MSV-GEN II
+		"66326bfd46817c660d015135", // KOMBAT Viking Molle Plate Carrier
 		"66326bfd46817c660d015137",	// Shellback Tactical Banshee Plate Carrier
 		"66326bfd46817c660d015138",	// Sentry Plate Carrier
 		"66326bfd46817c660d015139",	// CONDOR MOPC PLATE CARRIER
-		"66326bfd46817c660d015145",	// Sentry Plate Carrier
-		"66326bfd46817c660d015149"	// MOPC Plate Carrier
+		"66326bfd46817c660d015145",	// OPENLAND HEXAGON Plate Carrier
+		"66326bfd46817c660d015149",	// JPC 2.0 MARITIME
+		"66326bfd46817c660d015151", // 5.11 TACTEC Plate Carrier
+		"66326bfd46817c660d015152",	// TACTEC Plate Carrier
+		"6673b1ac5cae0610f1079d7a",	// ARTEM_CPCMC
+		"6673b1ac5cae0610f1079d7b",	// ARTEM_CPCALP
+		"6673b1ac5cae0610f1079d7c"	// ARTEM_CPCBMC
 	],
 
 	// Armors that can protect upper and lower Torso

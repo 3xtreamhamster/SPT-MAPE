@@ -1,15 +1,15 @@
 import { DependencyContainer } from "tsyringe";
-import { Ilogger } from "@spt-aki/models/spt/utils/Ilogger";
-import { IPostDBLoadMod } from "@spt-aki/models/external/IPostDBLoadMod";
-import { DatabaseServer } from "@spt-aki/servers/DatabaseServer";
-import { PreAkiModLoader } from "@spt-aki/loaders/PreAkiModLoader";
-import { IPostAkiLoadMod } from "@spt-aki/models/external/IPostAkiLoadMod";
+import { Ilogger } from "@spt/models/spt/utils/Ilogger";
+import { IPostDBLoadMod } from "@spt/models/external/IPostDBLoadMod";
+import { DatabaseServer } from "@spt/servers/DatabaseServer";
+import { PreSptModLoader } from "@spt/loaders/PreSptModLoader";
+import { IPostSptLoadMod } from "@spt/models/external/IPostSptLoadMod";
 
-import { VFS } from "@spt-aki/utils/VFS";
+import { VFS } from "@spt/utils/VFS";
 import { jsonc } from "jsonc";
 import path from "path";
 
-class MAPE implements IPostDBLoadMod, IPostAkiLoadMod, PreAkiModLoader
+class MAPE implements IPostDBLoadMod, IPostSptLoadMod, PreSptModLoader
 {
 	public mod: string;
     public modShortName: string;
@@ -30,16 +30,21 @@ class MAPE implements IPostDBLoadMod, IPostAkiLoadMod, PreAkiModLoader
 		const config = jsonc.parse(vfs.readFile(path.resolve(__dirname, "../config/config.jsonc")));
 
 		// Check Compatibility
-		const preAkiModLoader = container.resolve<PreAkiModLoader>("PreAkiModLoader");
-		if (!config.mod_TGC && preAkiModLoader.getImportedModsNames().includes("MoxoPixel-TacticalGearComponent"))
+		const preSptModLoader = container.resolve<PreSptModLoader>("PreSptModLoader");
+		if (!config.mod_TGC && preSptModLoader.getImportedModsNames().includes("MoxoPixel-TacticalGearComponent"))
 		{
 			logger.info(`[${this.modShortName}] Tactical Gear Component is detected.`);
 			config.mod_TGC = true;
 		}
-		if (!config.mod_ARTEM && preAkiModLoader.getImportedModsNames().includes("AAArtemEquipment"))
+		if (!config.mod_ARTEM && preSptModLoader.getImportedModsNames().includes("AAArtemEquipment"))
 		{
 			logger.info(`[${this.modShortName}] Artem Equipment is detected.`);
 			config.mod_ARTEM = true;
+		}
+		if (!config.mod_BLACKCORE && preSptModLoader.getImportedModsNames().includes("MoxoPixel-BlackCore"))
+		{
+			logger.info(`[${this.modShortName}] Blackcore is detected.`);
+			config.mod_BLACKCORE = true;
 		}
 
 		let defaultArmorGears = [];
@@ -54,7 +59,7 @@ class MAPE implements IPostDBLoadMod, IPostAkiLoadMod, PreAkiModLoader
 			config.entireTorso = config.entireTorso.concat(artemConfig.entireTorso);
 
 			if (config.debug) {
-				logger.info(`[${this.modShortName}] Artem equipments loaded.)`);
+				logger.info(`[${this.modShortName}] Artem equipments loaded.`);
 			}
 		}
 		
@@ -64,7 +69,7 @@ class MAPE implements IPostDBLoadMod, IPostAkiLoadMod, PreAkiModLoader
 				
 				// Mod Compatibility
 				if (config.mod_TGC) { // For MoxoPixel-TacticalGearComponent
-					const modTGC_items = JSON.parse(vfs.readFile(path.resolve(__dirname, "../../MoxoPixel-TacticalGearComponent/database/modTGC_items.json"))); // is it working?
+					const modTGC_items = JSON.parse(vfs.readFile(path.resolve(__dirname, "../../MoxoPixel-TacticalGearComponent/database/modTGC_items.json")));
 
 					if (modTGC_items.hasOwnProperty(itemId)) {
 						let cloneId = modTGC_items[itemId].clone;
@@ -79,6 +84,31 @@ class MAPE implements IPostDBLoadMod, IPostAkiLoadMod, PreAkiModLoader
 						else if (modTGC_items.hasOwnProperty(cloneId)) { // if item is clone of TGC another armor
 							while (modTGC_items.hasOwnProperty(cloneId)) { // change cloneId until it is BSG's default EFT gear's one.
 								cloneId = modTGC_items[cloneId].clone;
+
+								if (config.debug) {
+									logger.info(`[${this.modShortName}] Cloned ${itemDB[item]._name}'s cloneID. (clone id ${itemId} )`);
+								}
+							}
+							itemId = cloneId; // change itemId to cloneId
+						}
+					}		
+				}
+				if (config.mod_BLACKCORE) { // For MoxoPixel-BlackCore
+					const modBlackCore_items = JSON.parse(vfs.readFile(path.resolve(__dirname, "../../MoxoPixel-BlackCore/database/items.json"))); // is it working?
+
+					if (modBlackCore_items.hasOwnProperty(itemId)) {
+						let cloneId = modBlackCore_items[itemId].clone;
+
+						if (defaultArmorGears.includes(cloneId)) { // check item is armor vest or body armor
+							itemId = cloneId; // change itemId to cloneId
+
+							if (config.debug) {
+								logger.info(`[${this.modShortName}] Cloned ${itemDB[item]._name}'s cloneID. (clone id ${itemId} )`);
+							}			
+						}
+						else if (modBlackCore_items.hasOwnProperty(cloneId)) { // if item is clone of Blackcore another armor
+							while (modBlackCore_items.hasOwnProperty(cloneId)) { // change cloneId until it is BSG's default EFT gear's one.
+								cloneId = modBlackCore_items[cloneId].clone;
 
 								if (config.debug) {
 									logger.info(`[${this.modShortName}] Cloned ${itemDB[item]._name}'s cloneID. (clone id ${itemId} )`);

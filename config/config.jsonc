@@ -4,6 +4,7 @@
 	// Mod Compatibility Options
 	"mod_TGC" : false,				// Tactical Gear Component
 	"mod_ARTEM": false,				// Artem's gear
+	"mod_BLACKCORE": false,			// Blackcore
 
 	// Protection Type Options
 	"isFrontPlateProtectSideTorso" : false,	// If it is true, front plates also protect side(LeftSideChestDown, RightSideChestDown)
