@@ -9,6 +9,8 @@
 	// Protection Type Options
 	"isFrontPlateProtectSideTorso" : false,	// If it is true, front plates also protect side(LeftSideChestDown, RightSideChestDown)
 
+	// ----------------------
+
 	// Armors that can protect upper torso
 	"upperTorso": [
 		"63737f448b28897f2802b874",	// Hexatac HPC Plate Carrier (MultiCam Black)
@@ -93,6 +95,23 @@
 		"628b9784bcf6e2659e09b8a2",	// S&S Precision PlateFrame plate carrier (Goons Edition)
 		"628d0618d1ba6e4fa07ce5a4",	// NPP KlASS Bagariy plate carrier (Digital Flora)
 		"5f5f41476bdad616ad46d631"	// NPP KlASS Korund-VM body armor (Black)
+	],
+
+	// ----------------------
+
+	// Soft Armors that can protect upper and lower torso
+	"softArmorTorso" : [
+		"5c0e446786f7742013381639", // 6B5-15 Zh-86 Uley armored rig (Flora)
+		"5c0e3eb886f7742015526062", // 6B5-16 Zh-86 Uley armored rig (Khaki)
+		"5d5d646386f7742797261fd9", // 6B3TM-01 armored rig (Khaki)
+		"5df8a2ca86f7740bfe6df777", // 6B2 body armor (Flora)
+		"59e7635f86f7742cbf2c1095", // BNTI Module-3M body armor
+		"5648a7494bdc2d9d488b4583", // PACA Soft Armor
+		"607f20859ee58b18e41ecd90", // PACA Soft Armor (Rivals Edition)
+		"64be79c487d1510151095552", // NPP KlASS Kora-Kulon body armor (Black)
+		"64be79e2bf8412471d0d9bcc", // NPP KlASS Kora-Kulon body armor (Digital Flora)
+		"5ab8e4ed86f7742d8e50c7fa", // MF-UNTAR body armor
+		"62a09d79de7ac81993580530"  // DRD body armor
 	],
 
 	// ----------------------

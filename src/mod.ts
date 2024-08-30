@@ -17,7 +17,43 @@ class MAPE implements IPostDBLoadMod, IPostSptLoadMod, PreSptModLoader
 	constructor() {
         this.mod = "Make Armor Plate Effective";
         this.modShortName = "MAPE";
-	}	
+	}
+
+	// Set soft insert slot protection area
+	public SetSoftSlotProtectArea(itemDB: any, item: any, config: any, frontArea: any, backArea: any, logger: any) {
+		let slots = itemDB[item]._props.Slots;
+
+		for (let slotIdx = 0; slotIdx < slots.length; slotIdx++){
+			let slotName = slots[slotIdx]._name;
+			
+			if (config.debug) {
+				logger.info(`[${this.modShortName}] idx: ${slotIdx}, slotName: ${slotName}`);
+			}	
+
+			if (slotName.includes("Soft_armor") || slotName.includes("soft_armor")) { // because of BSG's shitty lowercase typo
+				if (slotName.includes("front")) {
+					slots[slotIdx]._props.filters[0].armorColliders = frontArea; // set front soft armor collider
+				}
+				else if (slotName.includes("back")) {
+					slots[slotIdx]._props.filters[0].armorColliders = backArea; // set back soft armor collider
+				}
+			}
+		}
+	}
+
+	// Set plate slot protection area
+	public SetPlateSlotProtectArea(itemDB: any, item: any, frontArea: any, backArea: any) {
+		itemDB[item]._props.Slots[0]._props.filters[0].armorColliders = frontArea; // set front plate armor collider
+		itemDB[item]._props.Slots[1]._props.filters[0].armorColliders = backArea; // set back plate armor collider
+		itemDB[item]._props.Slots[0]._props.filters[0].armorPlateColliders = [];
+		itemDB[item]._props.Slots[1]._props.filters[0].armorPlateColliders = [];
+	}
+
+	// Set armor plate's protection area
+	public SetPlateProtectArea(itemDB: any, item: any, protectArea: any) {
+		itemDB[item]._props.armorColliders = protectArea;
+		itemDB[item]._props.armorPlateColliders = [];
+	}
 
 	public postDBLoad(container: DependencyContainer): void 
 	{
@@ -128,60 +164,82 @@ class MAPE implements IPostDBLoadMod, IPostSptLoadMod, PreSptModLoader
 					config.frontArmorPlateProtectableArea = config.frontArmorPlateProtectableArea.concat(config.sideArmorPlateProtectableArea);
 				}
 
+				// ------------- Slot Setting -------------
 				if (config.upperTorso.includes(itemId)) {	// if item is in upperTorso table
 					if (config.debug) {
-						logger.info(`[${this.modShortName}] adjusting item ${itemDB[item]._name} (id ${itemId} ) to match config values (upper)`);
+						logger.info(`[${this.modShortName}] adjusting item ${itemDB[item]._name} (id ${itemId} ) (upper)`);
 					}
-					itemDB[item]._props.Slots[0]._props.filters[0].armorColliders = config.upperTorsoFrontProtectionArea; // set front plate armor collider
-					itemDB[item]._props.Slots[1]._props.filters[0].armorColliders = config.upperTorsoBackProtectionArea; // set back plate armor collider
-					itemDB[item]._props.Slots[0]._props.filters[0].armorPlateColliders = [];
-					itemDB[item]._props.Slots[1]._props.filters[0].armorPlateColliders = [];
-					
+					this.SetSoftSlotProtectArea(itemDB, item, config, config.upperTorsoFrontProtectionArea, config.upperTorsoBackProtectionArea, logger);
+					this.SetPlateSlotProtectArea(itemDB, item, config.upperTorsoFrontProtectionArea, config.upperTorsoBackProtectionArea)				
 				}
 				else if (config.lowerTorso.includes(itemId)) { // if item is in lowerTorso table
 					if (config.debug) {
-						logger.info(`[${this.modShortName}] adjusting item ${itemDB[item]._name} (id ${itemId} ) to match config values (lower)`);
-					}
-					itemDB[item]._props.Slots[0]._props.filters[0].armorColliders = config.lowerTorsoFrontProtectionArea; // set front plate armor collider
-					itemDB[item]._props.Slots[1]._props.filters[0].armorColliders = config.lowerTorsoBackProtectionArea; // set back plate armor collider
-					itemDB[item]._props.Slots[0]._props.filters[0].armorPlateColliders = [];
-					itemDB[item]._props.Slots[1]._props.filters[0].armorPlateColliders = [];
+						logger.info(`[${this.modShortName}] adjusting item ${itemDB[item]._name} (id ${itemId} ) (lower)`);
+					}		
+					this.SetSoftSlotProtectArea(itemDB, item, config,  config.lowerTorsoFrontProtectionArea, config.lowerTorsoBackProtectionArea, logger);		
+					this.SetPlateSlotProtectArea(itemDB, item, config.lowerTorsoFrontProtectionArea, config.lowerTorsoBackProtectionArea)			
 				}
 				else if (config.entireTorso.includes(itemId)) { // if item is in entireTorso table
 					if (config.debug) {
-						logger.info(`[${this.modShortName}] adjusting item ${itemDB[item]._name} (id ${itemId} ) to match config values (entire)`);
+						logger.info(`[${this.modShortName}] adjusting item ${itemDB[item]._name} (id ${itemId} ) (entire)`);
 					}
-					itemDB[item]._props.Slots[0]._props.filters[0].armorColliders = config.entireTorsoFrontProtectionArea; // set front plate armor collider
-					itemDB[item]._props.Slots[1]._props.filters[0].armorColliders = config.entireTorsoBackProtectionArea; // set back plate armor collider
-					itemDB[item]._props.Slots[0]._props.filters[0].armorPlateColliders = [];
-					itemDB[item]._props.Slots[1]._props.filters[0].armorPlateColliders = [];
+					this.SetSoftSlotProtectArea(itemDB, item, config, config.entireTorsoFrontProtectionArea, config.entireTorsoBackProtectionArea, logger);
+					this.SetPlateSlotProtectArea(itemDB, item, config.entireTorsoFrontProtectionArea, config.entireTorsoBackProtectionArea)
 				}
-				else if (config.armorPlates.includes(itemId)) { // if item is an armor plate
+
+				if (config.softArmorTorso.includes(itemId)) {
 					if (config.debug) {
-						logger.info(`[${this.modShortName}] adjusting item ${itemDB[item]._name} (id ${itemId} ) to match config values (plate)`);
+						logger.info(`[${this.modShortName}] adjusting item ${itemDB[item]._name} (id ${itemId} ) (soft torso)`);
 					}
-					itemDB[item]._props.armorColliders = config.armorPlateProtectableArea;
-					itemDB[item]._props.armorPlateColliders = [];
+					this.SetSoftSlotProtectArea(itemDB, item, config,  config.lowerTorsoFrontProtectionArea, config.lowerTorsoBackProtectionArea, logger);
+				}
+
+
+				// ------------- Slot Setting -------------
+
+				// ------------- Insert, Plate Setting -------------
+				// Soft Armor Insert Protectable Area Setting
+				let itemName = itemDB[item]._name;
+				if (itemName.includes("Soft_armor") || itemName.includes("soft_armor")) { // for soft armor inserts
+					if (itemName.includes("front")) {
+						if (config.debug) {
+							logger.info(`[${this.modShortName}] adjusting soft insert ${itemDB[item]._name} (id ${itemId} )`);
+						}
+						itemDB[item]._props.armorColliders = config.frontArmorPlateProtectableArea;
+					}
+					else if (itemName.includes("back")) {
+						if (config.debug) {
+							logger.info(`[${this.modShortName}] adjusting soft insert ${itemDB[item]._name} (id ${itemId} )`);
+						}
+						itemDB[item]._props.armorColliders = config.backArmorPlateProtectableArea;
+					}
+				}
+
+				// Armor Plate Protectable Area Setting
+				if (config.armorPlates.includes(itemId)) { // if item is an armor plate
+					if (config.debug) {
+						logger.info(`[${this.modShortName}] adjusting item ${itemDB[item]._name} (id ${itemId} ) (plate)`);
+					}
+					this.SetPlateProtectArea(itemDB, item, config.armorPlateProtectableArea);
 				}
 				else if (config.frontArmorPlates.includes(itemId)) { // if item is an front armor plate
 					if (config.debug) {
-						logger.info(`[${this.modShortName}] adjusting item ${itemDB[item]._name} (id ${itemId} ) to match config values (front plate)`);
+						logger.info(`[${this.modShortName}] adjusting item ${itemDB[item]._name} (id ${itemId} ) (front plate)`);
 					}
-					itemDB[item]._props.armorColliders = config.frontArmorPlateProtectableArea;
-					itemDB[item]._props.armorPlateColliders = [];
+					this.SetPlateProtectArea(itemDB, item, config.frontArmorPlateProtectableArea);
 				}
 				else if (config.backArmorPlates.includes(itemId)) { // if item is an back armor plate
 					if (config.debug) {
-						logger.info(`[${this.modShortName}] adjusting item ${itemDB[item]._name} (id ${itemId} ) to match config values (back plate)`);
+						logger.info(`[${this.modShortName}] adjusting item ${itemDB[item]._name} (id ${itemId} ) (back plate)`);
 					}
-					itemDB[item]._props.armorColliders = config.backArmorPlateProtectableArea;
-					itemDB[item]._props.armorPlateColliders = [];
+					this.SetPlateProtectArea(itemDB, item, config.backArmorPlateProtectableArea);
 				}
 
+				// Side Plate Setting
 				if (!config.isFrontPlateProtectSideTorso) { // can use side plates
 					if (config.sideTorso.includes(itemId)) {
 						if (config.debug) {
-							logger.info(`[${this.modShortName}] adjusting item ${itemDB[item]._name} (id ${itemId} ) to match config values (side)`);
+							logger.info(`[${this.modShortName}] adjusting item ${itemDB[item]._name} (id ${itemId} ) (side)`);
 						}
 						itemDB[item]._props.Slots[2]._props.filters[0].armorColliders = config.leftSideTorsoProtectionArea; // set left side plate armor collider
 						itemDB[item]._props.Slots[3]._props.filters[0].armorColliders = config.rightSideTorsoProtectionArea; // set right side plate armor collider
@@ -190,12 +248,13 @@ class MAPE implements IPostDBLoadMod, IPostSptLoadMod, PreSptModLoader
 					}
 					else if (config.sideArmorPlates.includes(itemId)) {
 						if (config.debug) {
-							logger.info(`[${this.modShortName}] adjusting item ${itemDB[item]._name} (id ${itemId} ) to match config values (side plate)`);
+							logger.info(`[${this.modShortName}] adjusting item ${itemDB[item]._name} (id ${itemId} ) (side plate)`);
 						}
 						itemDB[item]._props.armorColliders = config.sideArmorPlateProtectableArea;
 						itemDB[item]._props.armorPlateColliders = [];
 					}
 				}
+				// ------------- Insert, Plate Setting -------------
 			}
 		}
 		logger.info(`[${this.modShortName}] ${this.mod} Loaded`);
