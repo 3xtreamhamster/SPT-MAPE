@@ -24,17 +24,15 @@ class MAPE implements IPostDBLoadMod, IPostSptLoadMod, PreSptModLoader
 		let slots = itemDB[item]._props.Slots;
 
 		for (let slotIdx = 0; slotIdx < slots.length; slotIdx++){
-			let slotName = slots[slotIdx]._name;
-			
-			if (config.debug) {
-				logger.info(`[${this.modShortName}] idx: ${slotIdx}, slotName: ${slotName}`);
-			}	
+			let slotName = slots[slotIdx]._name;		
 
 			if (slotName.includes("Soft_armor") || slotName.includes("soft_armor")) { // because of BSG's shitty lowercase typo
 				if (slotName.includes("front")) {
+					if (config.debug) logger.info(`[${this.modShortName}] idx: ${slotIdx}, slotName: ${slotName}`);
 					slots[slotIdx]._props.filters[0].armorColliders = frontArea; // set front soft armor collider
 				}
 				else if (slotName.includes("back")) {
+					if (config.debug) logger.info(`[${this.modShortName}] idx: ${slotIdx}, slotName: ${slotName}`);
 					slots[slotIdx]._props.filters[0].armorColliders = backArea; // set back soft armor collider
 				}
 			}
@@ -172,21 +170,20 @@ class MAPE implements IPostDBLoadMod, IPostSptLoadMod, PreSptModLoader
 					this.SetSoftSlotProtectArea(itemDB, item, config, config.upperTorsoFrontProtectionArea, config.upperTorsoBackProtectionArea, logger);
 					this.SetPlateSlotProtectArea(itemDB, item, config.upperTorsoFrontProtectionArea, config.upperTorsoBackProtectionArea)				
 				}
-				else if (config.lowerTorso.includes(itemId)) { // if item is in lowerTorso table
+				if (config.lowerTorso.includes(itemId)) { // if item is in lowerTorso table
 					if (config.debug) {
 						logger.info(`[${this.modShortName}] adjusting item ${itemDB[item]._name} (id ${itemId} ) (lower)`);
 					}		
 					this.SetSoftSlotProtectArea(itemDB, item, config,  config.lowerTorsoFrontProtectionArea, config.lowerTorsoBackProtectionArea, logger);		
 					this.SetPlateSlotProtectArea(itemDB, item, config.lowerTorsoFrontProtectionArea, config.lowerTorsoBackProtectionArea)			
 				}
-				else if (config.entireTorso.includes(itemId)) { // if item is in entireTorso table
+				if (config.entireTorso.includes(itemId)) { // if item is in entireTorso table
 					if (config.debug) {
 						logger.info(`[${this.modShortName}] adjusting item ${itemDB[item]._name} (id ${itemId} ) (entire)`);
 					}
 					this.SetSoftSlotProtectArea(itemDB, item, config, config.entireTorsoFrontProtectionArea, config.entireTorsoBackProtectionArea, logger);
 					this.SetPlateSlotProtectArea(itemDB, item, config.entireTorsoFrontProtectionArea, config.entireTorsoBackProtectionArea)
 				}
-
 				if (config.softArmorTorso.includes(itemId)) {
 					if (config.debug) {
 						logger.info(`[${this.modShortName}] adjusting item ${itemDB[item]._name} (id ${itemId} ) (soft torso)`);

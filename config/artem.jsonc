@@ -14,7 +14,13 @@
 		"66326bfd46817c660d015152",	// TACTEC Plate Carrier
 		"6673b1ac5cae0610f1079d7a",	// ARTEM_CPCMC
 		"6673b1ac5cae0610f1079d7b",	// ARTEM_CPCALP
-		"6673b1ac5cae0610f1079d7c"	// ARTEM_CPCBMC
+		"6673b1ac5cae0610f1079d7c",	// ARTEM_CPCBMC
+		"66bf757f27d0b097db0ace22", // Eagle Industries MMAC plate carrier (MARPAT)
+		"66bf757f27d0b097db0ace23", // Eagle Industries MMAC plate carrier (Black)
+		"66bf757f27d0b097db0ace36", // AirLite SPC (Multicam)
+		"66bf757f27d0b097db0ace38", // LV-119 (Multicam)
+		"66b94b886af54725ea0a4b93", // FORT Defender-2 body armor(OD)
+		"677156cc0177798346cf341c" 	// JPC 2.0 MARITIME
 	],
 
 	// Armors that can protect upper and lower Torso

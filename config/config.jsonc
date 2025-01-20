@@ -20,6 +20,7 @@
 		"6038b4ca92ec1c3103795a0d",	// LBT-6094A Slick Plate Carrier (Olive Drab)	
 		"64a5366719bab53bd203bf33",	// Eagle Allied Industries MBSS plate carrier (Coyote Brown)
 		"628cd624459354321c4b7fa2",	// Tasmanian Tiger SK plate carrier (MultiCam Black)
+		"66b6295a8ca68c6461709efa",	// Tasmanian Tiger Plate Carrier MKIII (Coyote Brown)
 		"628b9784bcf6e2659e09b8a2",	// S&S Precision PlateFrame plate carrier (Goons Edition)
 		"64a536392d2c4e6e970f4121",	// WARTECH TV-115 plate carrier (Olive Drab)
 		"5c0e746986f7741453628fe5",	// WARTECH TV-110 plate carrier (Coyote)
@@ -29,7 +30,8 @@
 		"609e860ebd219504d8507525",	// Crye Precision AVS plate carrier (Tagilla Edition)
 		"5b44cad286f77402a54ae7e5",	// 5.11 Tactical TacTec plate carrier (Ranger Green)
 		"628b9c7d45122232a872358f",	// Crye Precision CPC plate carrier (Goons Edition)
-		"5e4ac41886f77406a511c9a8"	// Ars Arma CPC MOD.1 plate carrier (A-TACS FG)	
+		"5e4ac41886f77406a511c9a8",	// Ars Arma CPC MOD.1 plate carrier (A-TACS FG)
+		"66b6295178bbc0200425f995"	// Stich Profi Stich Defense mod.2 plate carrier (MultiCam)
 	],
 
 	// Armors that can protect upper and lower torso
@@ -65,7 +67,8 @@
 		"545cdb794bdc2d3a198b456a",	// 6B43 Zabralo-Sh body armor (Digital Flora)
 		"5b44cd8b86f774503d30cba2",	// IOTV Gen4 body armor (Full Protection Kit, MultiCam)
 		"628dc750b910320f4c27a732",	// ECLiPSE RBAV-AF plate carrier (Ranger Green)
-		"544a5caa4bdc2d1a388b4568"	// Crye Precision AVS plate carrier (Ranger Green)
+		"544a5caa4bdc2d1a388b4568",	// Crye Precision AVS plate carrier (Ranger Green)
+		"66b6296d7994640992013b17"	// Stich Profi Plate Carrier V2 (Black)
 	],
 
 	// Armors that can protect side torso (can be overlapped with above options)
@@ -94,7 +97,8 @@
 		"639343fce101f4caa40a4ef3",	// Shellback Tactical Banshee plate carrier (A-TACS AU)
 		"628b9784bcf6e2659e09b8a2",	// S&S Precision PlateFrame plate carrier (Goons Edition)
 		"628d0618d1ba6e4fa07ce5a4",	// NPP KlASS Bagariy plate carrier (Digital Flora)
-		"5f5f41476bdad616ad46d631"	// NPP KlASS Korund-VM body armor (Black)
+		"5f5f41476bdad616ad46d631",	// NPP KlASS Korund-VM body armor (Black)
+		"66b6295178bbc0200425f995"	// Stich Profi Stich Defense mod.2 plate carrier (MultiCam)
 	],
 
 	// ----------------------
