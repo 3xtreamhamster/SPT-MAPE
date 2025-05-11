@@ -25,8 +25,6 @@ class MAPE implements IPostDBLoadMod, IPostSptLoadMod, PreSptModLoader
 
 		for (let slotIdx = 0; slotIdx < slots.length; slotIdx++){
 			let slotName = slots[slotIdx]._name;
-			
-			
 
 			if (slotName.includes("Soft_armor") || slotName.includes("soft_armor")) { // because of BSG's shitty lowercase typo
 				if (slotName.includes("front")) {
@@ -105,7 +103,7 @@ class MAPE implements IPostDBLoadMod, IPostSptLoadMod, PreSptModLoader
 				
 				// Mod Compatibility
 				if (config.mod_TGC) { // For MoxoPixel-TacticalGearComponent
-					const modTGC_items = JSON.parse(fileSystem.readJson(__dirname, "../../MoxoPixel-TacticalGearComponent/database/modTGC_items.json"));
+					const modTGC_items = fileSystem.readJson(__dirname, "../../MoxoPixel-TacticalGearComponent/database/modTGC_items.json");
 					if (modTGC_items.hasOwnProperty(itemId)) {
 						let cloneId = modTGC_items[itemId].clone;
 
@@ -129,7 +127,7 @@ class MAPE implements IPostDBLoadMod, IPostSptLoadMod, PreSptModLoader
 					}		
 				}
 				if (config.mod_BLACKCORE) { // For MoxoPixel-BlackCore
-					const modBlackCore_items = JSON.parse(fileSystem.readJson(__dirname, "../../MoxoPixel-BlackCore/database/items.json"));
+					const modBlackCore_items = fileSystem.readJson(__dirname, "../../MoxoPixel-BlackCore/database/items.json");
 
 					if (modBlackCore_items.hasOwnProperty(itemId)) {
 						let cloneId = modBlackCore_items[itemId].clone;
