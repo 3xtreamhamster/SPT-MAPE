@@ -5,9 +5,9 @@ import { DatabaseServer } from "@spt/servers/DatabaseServer";
 import { PreSptModLoader } from "@spt/loaders/PreSptModLoader";
 import { IPostSptLoadMod } from "@spt/models/external/IPostSptLoadMod";
 
-import { VFS } from "@spt/utils/VFS";
-import { jsonc } from "jsonc";
-import path from "path";
+import type { FileSystemSync } from "@spt/utils/FileSystemSync";
+import JSON5 from "json5";
+import path from "node:path";
 
 class MAPE implements IPostDBLoadMod, IPostSptLoadMod, PreSptModLoader
 {
@@ -24,7 +24,9 @@ class MAPE implements IPostDBLoadMod, IPostSptLoadMod, PreSptModLoader
 		let slots = itemDB[item]._props.Slots;
 
 		for (let slotIdx = 0; slotIdx < slots.length; slotIdx++){
-			let slotName = slots[slotIdx]._name;		
+			let slotName = slots[slotIdx]._name;
+			
+			
 
 			if (slotName.includes("Soft_armor") || slotName.includes("soft_armor")) { // because of BSG's shitty lowercase typo
 				if (slotName.includes("front")) {
@@ -60,8 +62,8 @@ class MAPE implements IPostDBLoadMod, IPostSptLoadMod, PreSptModLoader
 		const tables = db.getTables();    
 		const itemDB = tables.templates.items;
 
-		const vfs = container.resolve<VFS>("VFS");
-		const config = jsonc.parse(vfs.readFile(path.resolve(__dirname, "../config/config.jsonc")));
+		const fileSystem = container.resolve<FileSystemSync>("FileSystemSync");
+		const config = JSON5.parse(fileSystem.read(path.resolve(__dirname, "../config/config.jsonc")));
 
 		// Check Compatibility
 		const preSptModLoader = container.resolve<PreSptModLoader>("PreSptModLoader");
@@ -86,7 +88,7 @@ class MAPE implements IPostDBLoadMod, IPostSptLoadMod, PreSptModLoader
 
 		// Mod Compatibility 
 		if (config.mod_ARTEM) { // For Artem Equipment mod
-			const artemConfig = jsonc.parse(vfs.readFile(path.resolve(__dirname, "../config/artem.jsonc")));
+			const artemConfig = JSON5.parse(fileSystem.read(path.resolve(__dirname, "../config/artem.jsonc")));
 
 			config.upperTorso = config.upperTorso.concat(artemConfig.upperTorso);
 			config.lowerTorso = config.lowerTorso.concat(artemConfig.lowerTorso);
@@ -103,8 +105,7 @@ class MAPE implements IPostDBLoadMod, IPostSptLoadMod, PreSptModLoader
 				
 				// Mod Compatibility
 				if (config.mod_TGC) { // For MoxoPixel-TacticalGearComponent
-					const modTGC_items = JSON.parse(vfs.readFile(path.resolve(__dirname, "../../MoxoPixel-TacticalGearComponent/database/modTGC_items.json")));
-
+					const modTGC_items = JSON.parse(fileSystem.readJson(__dirname, "../../MoxoPixel-TacticalGearComponent/database/modTGC_items.json"));
 					if (modTGC_items.hasOwnProperty(itemId)) {
 						let cloneId = modTGC_items[itemId].clone;
 
@@ -128,7 +129,7 @@ class MAPE implements IPostDBLoadMod, IPostSptLoadMod, PreSptModLoader
 					}		
 				}
 				if (config.mod_BLACKCORE) { // For MoxoPixel-BlackCore
-					const modBlackCore_items = JSON.parse(vfs.readFile(path.resolve(__dirname, "../../MoxoPixel-BlackCore/database/items.json"))); // is it working?
+					const modBlackCore_items = JSON.parse(fileSystem.readJson(__dirname, "../../MoxoPixel-BlackCore/database/items.json"));
 
 					if (modBlackCore_items.hasOwnProperty(itemId)) {
 						let cloneId = modBlackCore_items[itemId].clone;
